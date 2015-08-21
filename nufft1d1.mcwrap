@@ -1,0 +1,8 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+MCWRAP [ COMPLEX fk[1,ms], ier[1,1] ] = nufft1d1f90( xj[1,nj], COMPLEX cj[1,nj], iflag, eps, ms )
+SET_INPUT nj = size(xj,2)
+SOURCES nufft1df90.f dfftpack.f next235.f
+
+void nufft1d1f90(int nj,double *xj,double *cj,int iflag,double eps,int ms,double *fk,int *ier);
+
