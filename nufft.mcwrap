@@ -10,7 +10,7 @@
         % fk are the output values on uniform grid in fourier space
 
     %%% TYPE 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    MCWRAP [ COMPLEX cj[nj,1], ier[1,1] ] = nufft1d2f90( xj[ms,1], COMPLEX fk[ms,1], iflag, eps )
+    MCWRAP [ COMPLEX cj[nj,1], ier[1,1] ] = nufft1d2f90( xj[nj,1], COMPLEX fk[ms,1], iflag, eps )
         SET_INPUT nj = size(xj,1)
         SET_INPUT ms = size(fk,1)
         SOURCES nufft1df90.f dfftpack.f next235.f
@@ -53,7 +53,7 @@
         SET_INPUT nj = size(xj,1)
         SET_INPUT nk = size(sk,1)
         SOURCES nufft2df90.f dfftpack.f next235.f
-        void nufft2d3f90(int nj,double *xj,double *yj,double *cj,int iflag,double eps,int nk,int sk,int tk,double *fk,int *ier);
+        void nufft2d3f90(int nj,double *xj,double *yj,double *cj,int iflag,double eps,int nk,double *sk,double *tk,double *fk,int *ier);
         % xj,yj are the nonuniform locations and cj are the input values in space
         % sk,tk are the nonuniform locations and fk are the output values in fourier space
 
@@ -80,11 +80,11 @@
         % fk are the input values on uniform grid in fourier space
 
     %%% TYPE 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    MCWRAP [ COMPLEX fk[1,nk], ier[1,1] ] = nufft3d3f90( xj[nj,1], yj[nj,1], zj[nj,1], COMPLEX cj[nj,1], iflag, eps, sk[nk,1], tk[nk,1], uk[nk,1] )
+    MCWRAP [ COMPLEX fk[nk,1], ier[1,1] ] = nufft3d3f90( xj[nj,1], yj[nj,1], zj[nj,1], COMPLEX cj[nj,1], iflag, eps, sk[nk,1], tk[nk,1], uk[nk,1] )
         SET_INPUT nj = size(xj,1)
         SET_INPUT nk = size(sk,1)
         SOURCES nufft3df90.f dfftpack.f next235.f
-        void nufft3d3f90(int nj,double *xj,double *yj,double *zj,double *cj,int iflag,double eps,int nk,int sk,int tk,int uk,double *fk,int *ier);
+        void nufft3d3f90(int nj,double *xj,double *yj,double *zj,double *cj,int iflag,double eps,int nk,double *sk,double *tk,double *uk,double *fk,int *ier);
         % xj,yj,zj are the nonuniform locations and cj are the input values in space
         % sk,tk,uk are the nonuniform locations and fk are the output values in fourier space
     

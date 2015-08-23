@@ -113,16 +113,22 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         !xj
         !Check that we have the correct dimensions!
         numdims=mxGetNumberOfDimensions(prhs(1))
-        if (numdims .ne. 2) then
+        if (numdims .gt. 2) then
           call mexErrMsgTxt('Incorrect number of dimensions in input: xj')
         end if
         call mxCopyPtrToInteger4(mxGetDimensions(prhs(1)),dims,numdims)
         ALLOCATE(dims2(2))
         dims2=(/ input_nj,1 /)
         do ii=1,2
-          if (dims(ii) .ne. dims2(ii)) then
-            call mexErrMsgTxt('Incorrect size of input: xj')
-          end if
+          if (ii .le. numdims) then
+              if (dims(ii) .ne. dims2(ii)) then
+                call mexErrMsgTxt('Incorrect size of input: xj')
+              end if
+          else
+            if (dims2(ii) .ne. 1) then
+              call mexErrMsgTxt('Incorrect size of input (*): xj')
+            end if
+          end if;
         end do
         DEALLOCATE(dims2)
         p_input_xj=mxGetPr(prhs(1));
@@ -132,16 +138,22 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         !yj
         !Check that we have the correct dimensions!
         numdims=mxGetNumberOfDimensions(prhs(2))
-        if (numdims .ne. 2) then
+        if (numdims .gt. 2) then
           call mexErrMsgTxt('Incorrect number of dimensions in input: yj')
         end if
         call mxCopyPtrToInteger4(mxGetDimensions(prhs(2)),dims,numdims)
         ALLOCATE(dims2(2))
         dims2=(/ input_nj,1 /)
         do ii=1,2
-          if (dims(ii) .ne. dims2(ii)) then
-            call mexErrMsgTxt('Incorrect size of input: yj')
-          end if
+          if (ii .le. numdims) then
+              if (dims(ii) .ne. dims2(ii)) then
+                call mexErrMsgTxt('Incorrect size of input: yj')
+              end if
+          else
+            if (dims2(ii) .ne. 1) then
+              call mexErrMsgTxt('Incorrect size of input (*): yj')
+            end if
+          end if;
         end do
         DEALLOCATE(dims2)
         p_input_yj=mxGetPr(prhs(2));
@@ -151,16 +163,22 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         !zj
         !Check that we have the correct dimensions!
         numdims=mxGetNumberOfDimensions(prhs(3))
-        if (numdims .ne. 2) then
+        if (numdims .gt. 2) then
           call mexErrMsgTxt('Incorrect number of dimensions in input: zj')
         end if
         call mxCopyPtrToInteger4(mxGetDimensions(prhs(3)),dims,numdims)
         ALLOCATE(dims2(2))
         dims2=(/ input_nj,1 /)
         do ii=1,2
-          if (dims(ii) .ne. dims2(ii)) then
-            call mexErrMsgTxt('Incorrect size of input: zj')
-          end if
+          if (ii .le. numdims) then
+              if (dims(ii) .ne. dims2(ii)) then
+                call mexErrMsgTxt('Incorrect size of input: zj')
+              end if
+          else
+            if (dims2(ii) .ne. 1) then
+              call mexErrMsgTxt('Incorrect size of input (*): zj')
+            end if
+          end if;
         end do
         DEALLOCATE(dims2)
         p_input_zj=mxGetPr(prhs(3));
@@ -170,16 +188,22 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         !cj
         !Check that we have the correct dimensions!
         numdims=mxGetNumberOfDimensions(prhs(4))
-        if (numdims .ne. 2) then
+        if (numdims .gt. 2) then
           call mexErrMsgTxt('Incorrect number of dimensions in input: cj')
         end if
         call mxCopyPtrToInteger4(mxGetDimensions(prhs(4)),dims,numdims)
         ALLOCATE(dims2(2))
         dims2=(/ input_nj,1 /)
         do ii=1,2
-          if (dims(ii) .ne. dims2(ii)) then
-            call mexErrMsgTxt('Incorrect size of input: cj')
-          end if
+          if (ii .le. numdims) then
+              if (dims(ii) .ne. dims2(ii)) then
+                call mexErrMsgTxt('Incorrect size of input: cj')
+              end if
+          else
+            if (dims2(ii) .ne. 1) then
+              call mexErrMsgTxt('Incorrect size of input (*): cj')
+            end if
+          end if;
         end do
         DEALLOCATE(dims2)
         p_input_cj_re=mxGetPr(prhs(4));
@@ -192,11 +216,11 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
             call mxCopyPtrToReal8(p_input_cj_im,input_cj_im,int((input_nj)*(1)))
         end if
         do ii=1,(input_nj)*(1)
-            input_cj(ii*2)=input_cj_re(ii)
+            input_cj(1+(ii-1)*2)=input_cj_re(ii)
             if (p_input_cj_im .NE. 0) then
-            input_cj(ii*2+1)=input_cj_im(ii)
+            input_cj(1+(ii-1)*2+1)=input_cj_im(ii)
             else
-            input_cj(ii*2+1)=0    
+            input_cj(1+(ii-1)*2+1)=0    
             end if
         end do
         !iflag
@@ -239,7 +263,7 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
             p_output_fk_re=mxGetPr(plhs(1))
             p_output_fk_im=mxGetPi(plhs(1))
         end if
-         ALLOCATE(output_fk(int((input_ms)*(input_mt)*(input_mu))*2))
+        ALLOCATE(output_fk(int((input_ms)*(input_mt)*(input_mu))*2))
         ALLOCATE(output_fk_re(int((input_ms)*(input_mt)*(input_mu))))
         ALLOCATE(output_fk_im(int((input_ms)*(input_mt)*(input_mu))))
         !ier
@@ -299,8 +323,8 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         !fk
         if (1 .LE. nlhs) then
             do ii=1,(input_ms)*(input_mt)*(input_mu)
-                output_fk_re(ii)=output_fk(ii*2)
-                output_fk_im(ii)=output_fk(ii*2+1)
+                output_fk_re(ii)=output_fk(1+(ii-1)*2)
+                output_fk_im(ii)=output_fk(1+(ii-1)*2+1)
             end do
             call mxCopyReal8ToPtr(output_fk_re,p_output_fk_re,int((input_ms)*(input_mt)*(input_mu)))
             call mxCopyReal8ToPtr(output_fk_im,p_output_fk_im,int((input_ms)*(input_mt)*(input_mu)))
