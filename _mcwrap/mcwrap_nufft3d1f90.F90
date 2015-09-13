@@ -134,7 +134,6 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         p_input_xj=mxGetPr(prhs(1));
         ALLOCATE(input_xj((input_nj)*(1)))
         call mxCopyPtrToReal8(p_input_xj,input_xj,int((input_nj)*(1)))
-        
         !yj
         !Check that we have the correct dimensions!
         numdims=mxGetNumberOfDimensions(prhs(2))
@@ -159,7 +158,6 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         p_input_yj=mxGetPr(prhs(2));
         ALLOCATE(input_yj((input_nj)*(1)))
         call mxCopyPtrToReal8(p_input_yj,input_yj,int((input_nj)*(1)))
-        
         !zj
         !Check that we have the correct dimensions!
         numdims=mxGetNumberOfDimensions(prhs(3))
@@ -184,7 +182,6 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         p_input_zj=mxGetPr(prhs(3));
         ALLOCATE(input_zj((input_nj)*(1)))
         call mxCopyPtrToReal8(p_input_zj,input_zj,int((input_nj)*(1)))
-        
         !cj
         !Check that we have the correct dimensions!
         numdims=mxGetNumberOfDimensions(prhs(4))
@@ -318,6 +315,7 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         DEALLOCATE(input_cj_re)
         DEALLOCATE(input_cj_im)
 
+
       !call mexPrintf('test F'//char(10))
 !-----Set the outputs
         !fk
@@ -341,6 +339,7 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         end if
         DEALLOCATE(output_ier)
         DEALLOCATE(output_ier_double)
+
 
       !call mexPrintf('test G'//char(10))
 

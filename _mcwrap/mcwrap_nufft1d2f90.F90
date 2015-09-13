@@ -120,7 +120,6 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         p_input_xj=mxGetPr(prhs(1));
         ALLOCATE(input_xj((input_nj)*(1)))
         call mxCopyPtrToReal8(p_input_xj,input_xj,int((input_nj)*(1)))
-        
         !iflag
         p_input_iflag=mxGetPr(prhs(2));
         call mxCopyPtrToReal8(p_input_iflag,input_iflag_double,1)
@@ -234,6 +233,7 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         DEALLOCATE(input_fk_re)
         DEALLOCATE(input_fk_im)
 
+
       !call mexPrintf('test F'//char(10))
 !-----Set the outputs
         !cj
@@ -257,6 +257,7 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         end if
         DEALLOCATE(output_ier)
         DEALLOCATE(output_ier_double)
+
 
       !call mexPrintf('test G'//char(10))
 
