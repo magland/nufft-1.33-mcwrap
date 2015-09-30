@@ -96,8 +96,10 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
       end if
       if(nrhs .ne. 9) then
          call mexErrMsgIdAndTxt ('MCWRAP:IO','Incorrect number of inputs') 
+         return 
       elseif(nlhs .gt. 2) then
          call mexErrMsgIdAndTxt ('MCWRAP:IO','Too many outputs.')
+         return
       endif
 
 
@@ -124,10 +126,12 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
           if (ii .le. numdims) then
               if (dims(ii) .ne. dims2(ii)) then
                 call mexErrMsgTxt('Incorrect size of input: xj')
+                return
               end if
           else
             if (dims2(ii) .ne. 1) then
               call mexErrMsgTxt('Incorrect size of input (*): xj')
+              return
             end if
           end if;
         end do
@@ -148,10 +152,12 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
           if (ii .le. numdims) then
               if (dims(ii) .ne. dims2(ii)) then
                 call mexErrMsgTxt('Incorrect size of input: yj')
+                return
               end if
           else
             if (dims2(ii) .ne. 1) then
               call mexErrMsgTxt('Incorrect size of input (*): yj')
+              return
             end if
           end if;
         end do
@@ -172,10 +178,12 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
           if (ii .le. numdims) then
               if (dims(ii) .ne. dims2(ii)) then
                 call mexErrMsgTxt('Incorrect size of input: zj')
+                return
               end if
           else
             if (dims2(ii) .ne. 1) then
               call mexErrMsgTxt('Incorrect size of input (*): zj')
+              return
             end if
           end if;
         end do
@@ -196,10 +204,12 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
           if (ii .le. numdims) then
               if (dims(ii) .ne. dims2(ii)) then
                 call mexErrMsgTxt('Incorrect size of input: cj')
+                return
               end if
           else
             if (dims2(ii) .ne. 1) then
               call mexErrMsgTxt('Incorrect size of input (*): cj')
+              return
             end if
           end if;
         end do
@@ -241,10 +251,12 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
           if (ii .le. numdims) then
               if (dims(ii) .ne. dims2(ii)) then
                 call mexErrMsgTxt('Incorrect size of input: sk')
+                return
               end if
           else
             if (dims2(ii) .ne. 1) then
               call mexErrMsgTxt('Incorrect size of input (*): sk')
+              return
             end if
           end if;
         end do
@@ -265,10 +277,12 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
           if (ii .le. numdims) then
               if (dims(ii) .ne. dims2(ii)) then
                 call mexErrMsgTxt('Incorrect size of input: tk')
+                return
               end if
           else
             if (dims2(ii) .ne. 1) then
               call mexErrMsgTxt('Incorrect size of input (*): tk')
+              return
             end if
           end if;
         end do
@@ -289,10 +303,12 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
           if (ii .le. numdims) then
               if (dims(ii) .ne. dims2(ii)) then
                 call mexErrMsgTxt('Incorrect size of input: uk')
+                return
               end if
           else
             if (dims2(ii) .ne. 1) then
               call mexErrMsgTxt('Incorrect size of input (*): uk')
+              return
             end if
           end if;
         end do
@@ -307,12 +323,14 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         if (1 .LE. nlhs) then
         if ((2 .lt. 1) .or. (2 .gt. 20)) then
           call mexErrMsgTxt ('Bad number of dimensions for my taste: 2') 
+          return
         end if
         ALLOCATE(dims2(2))
         dims2=(/ input_nk,1 /)
         do ii=1,2
             if ((dims2(ii) .lt. 1) .or. (dims2(ii) .gt. 10000000000.0)) then
               call mexErrMsgTxt ('Bad array size for my taste: input_nk,1') 
+              return
             end if
         end do
         DEALLOCATE(dims2)
@@ -328,12 +346,14 @@ subroutine mexFunction(nlhs, plhs, nrhs, prhs)
         if (2 .LE. nlhs) then
         if ((2 .lt. 1) .or. (2 .gt. 20)) then
           call mexErrMsgTxt ('Bad number of dimensions for my taste: 2') 
+          return
         end if
         ALLOCATE(dims2(2))
         dims2=(/ 1,1 /)
         do ii=1,2
             if ((dims2(ii) .lt. 1) .or. (dims2(ii) .gt. 10000000000.0)) then
               call mexErrMsgTxt ('Bad array size for my taste: 1,1') 
+              return
             end if
         end do
         DEALLOCATE(dims2)
